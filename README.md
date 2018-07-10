@@ -15,7 +15,7 @@ v.validate({
     name: "Sean MacIsaac"
   },
   type: {
-    name: "string
+    name: "string"
   },
   isValid: true,
   invalid: [],
