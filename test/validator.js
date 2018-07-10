@@ -1,8 +1,8 @@
-import Validator from "@validator";
+import Verified from "@verified";
 
-Validator.create({
+Verified.create({
   "Shoe": function (data) {
-    const validator = new Validator({
+    const validator = new Verified({
       size: "number",
       brand: "string",
     });
@@ -13,7 +13,7 @@ Validator.create({
 export default function (test) {
   test("Validator: string")
     .this(function () {
-      const validator = new Validator("string");
+      const validator = new Verified("string");
       const result = validator.validate("Sean");
       return result;
     })
@@ -29,7 +29,7 @@ export default function (test) {
 
   test("Validator: string|number")
     .this(function () {
-      const validator = new Validator("string|number");
+      const validator = new Verified("string|number");
       const result = validator.validate(1);
       return result;
     })
@@ -45,7 +45,7 @@ export default function (test) {
 
   test("Validator: string (invalid)")
     .this(function () {
-      const validator = new Validator("string");
+      const validator = new Verified("string");
       const result = validator.validate(123);
       return result;
     })
@@ -62,7 +62,7 @@ export default function (test) {
   test("Validator: object with a string")
     .this(function () {
       try {
-        const validator = new Validator({
+        const validator = new Verified({
           value: "string",
         });
 
@@ -87,7 +87,7 @@ export default function (test) {
 
   test("Validator: object with a string (invalid)")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         value: "string",
       });
 
@@ -113,7 +113,7 @@ export default function (test) {
 
   test("Validator: object missing property")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         firstName: "string",
         lastName: "string",
       });
@@ -148,7 +148,7 @@ export default function (test) {
 
   test("Validator: object extra property")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         firstName: "string",
       });
 
@@ -183,7 +183,7 @@ export default function (test) {
 
   test("Validator: object with a nested object (invalid)")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         value: {
           nested: "string",
         },
@@ -226,7 +226,7 @@ export default function (test) {
   test("Validator: Shoe")
     .this(function () {
       try {
-        const validator = new Validator("Shoe");
+        const validator = new Verified("Shoe");
 
         const result = validator.validate({
           size: 12,
@@ -259,7 +259,7 @@ export default function (test) {
 
   test("Validator: Shoe, missing property")
     .this(function () {
-      const validator = new Validator("Shoe");
+      const validator = new Verified("Shoe");
 
       const result = validator.validate({
         brand: "Nike",
@@ -292,7 +292,7 @@ export default function (test) {
   test("Validator: Shoe, extra property")
     .this(function () {
       try {
-        const validator = new Validator("Shoe");
+        const validator = new Verified("Shoe");
 
         const result = validator.validate({
           owner: "Sean",
@@ -332,7 +332,7 @@ export default function (test) {
 
   test("Validator: string, number")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         name: "string",
         age: "number",
       });
@@ -365,7 +365,7 @@ export default function (test) {
 
   test("Validator: non existant 'any' property")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         address: "any",
       });
 
@@ -411,7 +411,7 @@ export default function (test) {
 
   test("Validator: Object instead of Array - string[]")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         list: "string[]",
       });
 
@@ -446,7 +446,7 @@ export default function (test) {
   test("Validator: array of strings")
     .this(function () {
       try {
-        const validator = new Validator("string[]");
+        const validator = new Verified("string[]");
 
         const result = validator.validate([
           "Sean",
@@ -474,7 +474,7 @@ export default function (test) {
   test("Validator: array of strings (invalid)")
     .this(function () {
       try {
-        const validator = new Validator("string[]");
+        const validator = new Verified("string[]");
 
         const result = validator.validate([
           1,
@@ -506,7 +506,7 @@ export default function (test) {
   test("Validator: array of any (any[])")
     .this(function () {
       try {
-        const validator = new Validator({
+        const validator = new Verified({
           list: "any[]",
         });
 
@@ -538,11 +538,11 @@ export default function (test) {
   test("Validator: Array of custom validator")
     .this(function () {
       try {
-        const validator = new Validator({
+        const validator = new Verified({
           cats: "Cat[]",
         }, {
           "Cat": function (value) {
-            return new Validator({
+            return new Verified({
               breed: "string",
               age: "number",
             }).validate(value);
@@ -595,9 +595,9 @@ export default function (test) {
   test("Validator: Array of custom validator (invalid)")
     .this(function () {
       try {
-        const validator = new Validator("Shoe[]", {
+        const validator = new Verified("Shoe[]", {
           "Shoe": function (value) {
-            return new Validator({
+            return new Verified({
               size: "number",
               brand: "string",
             }).validate(value);
@@ -637,7 +637,7 @@ export default function (test) {
 
   test("Validator: string or number")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         string: "string|number",
         number: "string|number",
         neither: "string|number",
@@ -679,11 +679,11 @@ export default function (test) {
 
   test("Validator: custom validator")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         shoe: "Shoe",
       }, {
         "Shoe": function (value) {
-          return new Validator({
+          return new Verified({
             size: "number",
             brand: "string",
           }).validate(value);
@@ -723,7 +723,7 @@ export default function (test) {
 
   test("Validator: Union typed array")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         "[string]": "Array<Shoe|string>",
       });
 
@@ -757,7 +757,7 @@ export default function (test) {
 
   test("Validator: nested string")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         nested: {
           string: "string",
         },
@@ -795,7 +795,7 @@ export default function (test) {
 
   test("Validator: nested string (invalid)")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         nested: {
           string: "string",
         },
@@ -837,7 +837,7 @@ export default function (test) {
 
   test("Validator: nested array")
     .this(function () {
-      const v = new Validator({
+      const v = new Verified({
         nested: {
           list: "string[]",
         },
@@ -875,7 +875,7 @@ export default function (test) {
 
   test("Validator: extra property")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         exists: "string",
       });
 
@@ -910,7 +910,7 @@ export default function (test) {
 
   test("Validator: mixed values array")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         list: "Array<string|number>",
       });
 
@@ -938,7 +938,7 @@ export default function (test) {
 
   test("Validator: mixed values array (invalid)")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         list: "Array<string|number>",
       });
 
@@ -970,7 +970,7 @@ export default function (test) {
 
   test("Validator: empty array - Array<string>")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         list: "Array<string>",
       });
 
@@ -1002,7 +1002,7 @@ export default function (test) {
 
   test("Validator: custom validator (invalid)")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         shoe: "Shoe",
       });
 
@@ -1041,7 +1041,7 @@ export default function (test) {
 
   test("Validator: Exact string (Asics)")
     .this(function () {
-      const validator = new Validator("Asics");
+      const validator = new Verified("Asics");
       const result = validator.validate("Asics");
       return result;
     })
@@ -1058,7 +1058,7 @@ export default function (test) {
   test("Validator: Exact or string (Asics|Nike)")
     .this(function () {
       try {
-        const validator = new Validator({
+        const validator = new Verified({
           shoe1: "Asics|Nike",
           shoe2: "Asics|Nike",
         });
@@ -1094,7 +1094,7 @@ export default function (test) {
 
   test("Validator: Shopping cart item")
     .this(function () {
-      const validated = new Validator({
+      const validated = new Verified({
         person: {
           userID: "number",
           firstName: "string",
@@ -1107,7 +1107,7 @@ export default function (test) {
         },
       }, {
         ShoppingCartItem: function (value) {
-          return new Validator({
+          return new Verified({
             id: "number",
             title: "string",
           })
@@ -1184,7 +1184,7 @@ export default function (test) {
 
   test("Validator: Optional parameter")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         firstName: "string",
         "lastName?": "string",
         "middleName?": "string",
@@ -1219,7 +1219,7 @@ export default function (test) {
 
   test("Validator: Array<string> - property is undefined")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         value: "Array<string>",
       });
 
@@ -1247,7 +1247,7 @@ export default function (test) {
 
   test("Validator: string[] - property is undefined")
     .this(function () {
-      const validated = new Validator({
+      const validated = new Verified({
         value: "string[]",
       });
 
@@ -1276,7 +1276,7 @@ export default function (test) {
   test("Validator: 'data' is undefined")
     .this(function () {
       try {
-        const validator = new Validator({
+        const validator = new Verified({
           value: "string",
         });
 
@@ -1307,7 +1307,7 @@ export default function (test) {
 
   test("Validator: typed key '[string]'")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         "[string]": "number",
         "something?": "string",
       });
@@ -1340,7 +1340,7 @@ export default function (test) {
 
   test("Validator: Optional typed key '[string]' - with keys")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         "[string]?": "string",
       });
 
@@ -1368,7 +1368,7 @@ export default function (test) {
 
   test("Validator: Optional typed key - empty object")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         "[string]?": "string",
       });
 
@@ -1390,7 +1390,7 @@ export default function (test) {
 
   test("Validator: Optional typed key - invalid")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         "[string]?": "number",
       });
 
@@ -1422,7 +1422,7 @@ export default function (test) {
 
   test("Validator: Optional typed key - with siblings")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         gender: "male|female",
         favoriteFruits: "Array<Apples|Chery>",
         "[string]?": "string",
@@ -1460,7 +1460,7 @@ export default function (test) {
 
   test("Validator: Optional typed key - with siblings (invalid)")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         gender: "male|female",
         favoriteFruits: "Array<Apples|Chery>",
         "[string]?": "string",
@@ -1505,7 +1505,7 @@ export default function (test) {
 
   test("Validator: Optional typed key")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         "[number]?": "object",
       });
 
@@ -1536,7 +1536,7 @@ export default function (test) {
 
   test("Validator: object '[string]: object'")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         "[string]": {
           age: "number",
           name: "string",
@@ -1615,7 +1615,7 @@ export default function (test) {
 
   test("Validator: object null")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         id: "any",
         value: "any",
       });
@@ -1648,7 +1648,7 @@ export default function (test) {
 
   test("Validator: false value")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         id: "boolean",
       });
 
@@ -1676,7 +1676,7 @@ export default function (test) {
 
   test("Validator: Fixed length array")
     .this(function () {
-      const validator = new Validator([{
+      const validator = new Verified([{
         name: "string",
       }, {
         name: "string",
@@ -1710,7 +1710,7 @@ export default function (test) {
 
   test("Validator: Fixed length array (invalid)")
     .this(function () {
-      const validator = new Validator([{
+      const validator = new Verified([{
         name: "string",
       }, {
         name: "string",
@@ -1754,9 +1754,9 @@ export default function (test) {
 
   test("Validator: Fixed length array, custom type (invalid)")
     .this(function () {
-      const validator = new Validator(["Person", "Person"], {
+      const validator = new Verified(["Person", "Person"], {
         Person: function (value) {
-          return new Validator({ name: "string" }).validate(value);
+          return new Verified({ name: "string" }).validate(value);
         },
       });
 
@@ -1794,7 +1794,7 @@ export default function (test) {
 
   test("Validator: Boolean")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         bool: "boolean",
       });
 
@@ -1823,7 +1823,7 @@ export default function (test) {
   test("Validator: Invalid object")
     .this(function () {
       try {
-        const validator = new Validator({
+        const validator = new Verified({
           address: {
             city: "Montreal",
             country: "CA",
@@ -1918,12 +1918,12 @@ export default function (test) {
 
   test("Validator: ACID Test (pass)")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         cats: "Cat[]",
         owner: "Owner",
       }, {
         Address: function (value) {
-          return new Validator({
+          return new Verified({
             line1: "string",
             "line1?": "string",
             country: "string",
@@ -1948,7 +1948,7 @@ export default function (test) {
         },
 
         Cat: function (value) {
-          return new Validator({
+          return new Verified({
             name: "string",
             age: "number",
             breed: "CatBreed",
@@ -1968,7 +1968,7 @@ export default function (test) {
         },
 
         Contact: function (value) {
-          return new Validator({
+          return new Verified({
             firstName: "string",
             lastName: "string",
             relationship: "string",
@@ -1982,7 +1982,7 @@ export default function (test) {
         },
 
         Owner: function (value) {
-          return new Validator({
+          return new Verified({
             firstName: "string",
             lastName: "string",
             age: "number|string",
@@ -2053,12 +2053,12 @@ export default function (test) {
 
   test("Validator: ACID Test (fail)")
     .this(function () {
-      const validator = new Validator({
+      const validator = new Verified({
         cats: "Cat[]",
         owner: "Owner",
       }, {
         Address: function (value) {
-          return new Validator({
+          return new Verified({
             line1: "string",
             "line1?": "string",
             country: "string",
@@ -2083,7 +2083,7 @@ export default function (test) {
         },
 
         Cat: function (value) {
-          return new Validator({
+          return new Verified({
             name: "string",
             age: "number",
             breed: "CatBreed",
@@ -2103,7 +2103,7 @@ export default function (test) {
         },
 
         Contact: function (value) {
-          return new Validator({
+          return new Verified({
             firstName: "string",
             lastName: "string",
             relationship: "string",
@@ -2117,7 +2117,7 @@ export default function (test) {
         },
 
         Owner: function (value) {
-          return new Validator({
+          return new Verified({
             firstName: "string",
             lastName: "string",
             age: "number|string",
