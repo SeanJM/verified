@@ -28,7 +28,7 @@ const resolve = {
   alias: {
     "@constants": path.resolve(__dirname, "src/constants/index.js"),
     "@predicates": path.resolve(__dirname, "src/predicates/index.js"),
-    "@validator": path.resolve(__dirname, "src/index.js"),
+    "@verified": path.resolve(__dirname, "src/index.js"),
     "@src": path.resolve(__dirname, "src/"),
   },
 };
