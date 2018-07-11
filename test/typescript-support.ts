@@ -11,5 +11,13 @@ const v2 = new Validator("MaybeString", {
   }
 }).validate("Sean MacIsaac");
 
+Validator.create({
+  Address: function (value) {
+    return new Validator({
+      line1: "string"
+    }).validate(value);
+  }
+});
+
 console.log(v1.invalid)
 console.log(v2.invalid)

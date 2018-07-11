@@ -18,6 +18,7 @@ interface Validators {
 
 declare module "verified" {
   class Validator {
+    static create(validators: Validators);
     constructor(type: any, validators?: Validators);
     validate(type: any): ValidatorResponse;
   }
