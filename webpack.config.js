@@ -29,6 +29,9 @@ const resolve = {
     "@constants": path.resolve(__dirname, "src/constants/index.js"),
     "@predicates": path.resolve(__dirname, "src/predicates/index.js"),
     "@verified": path.resolve(__dirname, "src/index.js"),
+    "@validate": path.resolve(__dirname, "src/validate/index.js"),
+    "@tools": path.resolve(__dirname, "src/tools/index.js"),
+    "@get": path.resolve(__dirname, "src/get/index.js"),
     "@src": path.resolve(__dirname, "src/"),
   },
 };

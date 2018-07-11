@@ -1,4 +1,4 @@
-import { getTypeInterface } from "../src/get-type-interface";
+import { getTypeInterface } from "@get";
 
 export default function (test) {
   test("getTypeInterface")

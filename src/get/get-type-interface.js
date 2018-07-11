@@ -1,16 +1,16 @@
-import { keys } from "./keys";
+import { keys } from "@tools";
 import { INVALID } from "@constants";
 import { getArrayType } from "./get-array-type";
-import { get } from "./get";
-import { validateInterface } from "./validate-interface";
+import { get } from "@tools";
+import { validateInterface } from "@validate";
 
 import {
   isTypedKey,
   isOptionalKey,
   isOptionalTypedKey,
-  isStaticKey
+  isStaticKey,
+  isTypedArray
 } from "@predicates";
-import { isTypedArray } from "./predicates";
 
 function getObjectTypeInterface(props) {
   const { pathname } = props;

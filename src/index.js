@@ -1,5 +1,5 @@
 import { STATIC_VALIDATOR, INVALID } from "@constants";
-import { validateByType } from "./validate-by-type";
+import { validateByType } from "@validate";
 
 export default class Validator {
   static create(object) {

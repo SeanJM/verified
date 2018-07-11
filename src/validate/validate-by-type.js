@@ -3,7 +3,7 @@ import { validateObject } from "./validate-object";
 import { validateArray } from "./validate-array";
 import { validateInterface } from "./validate-interface";
 import { isTypedArray } from "@predicates";
-import { getTypeList } from "./get-type-list";
+import { getTypeList } from "@get";
 
 /**
  * @param {object} props

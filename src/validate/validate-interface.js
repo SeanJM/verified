@@ -1,5 +1,5 @@
 import { isValidationResponse } from "@predicates";
-import { get } from "./get";
+import { get } from "@tools";
 
 function validateInterfaceType(props) {
   const { data, pathname, type, validators } = props;

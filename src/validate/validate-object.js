@@ -1,6 +1,6 @@
 import { validateByType } from "./validate-by-type";
-import { getTypeInterface } from "./get-type-interface";
-import { get } from "./get";
+import { getTypeInterface } from "@get";
+import { get } from "@tools";
 import { INVALID } from "@constants";
 
 /**
