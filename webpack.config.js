@@ -78,6 +78,8 @@ const def = {
 
   entry: "./src/index.js",
   output: {
+    libraryTarget: "commonjs2",
+    libraryExport: "default",
     path: path.resolve(__dirname),
     filename: "index.js",
   },
