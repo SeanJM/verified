@@ -190,3 +190,24 @@ validator.validate({
 #### Optional typed object keys
 
 `[string]?: { value: "string" }`
+
+## Extending types
+Sometimes we want to share properties from one type to the next, extending a type allows you to do just that.
+
+```js
+Validator.create({
+  Boot: function (value) {
+    return new Validator({
+      type: "string"
+    })
+  }
+});
+
+const validator = new Validator("Shoe").extend("Boot");
+
+validator.validate({
+  size: 13,
+  brand: "Nike",
+  type: "Hiking",
+});
+```

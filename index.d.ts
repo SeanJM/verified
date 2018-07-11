@@ -21,6 +21,7 @@ declare module "verified" {
     static create(validators: Validators);
     constructor(type: any, validators?: Validators);
     validate(type: any): ValidatorResponse;
+    extend(type: any): this;
   }
 
   export default Validator;

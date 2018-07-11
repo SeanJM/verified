@@ -10,6 +10,9 @@ const v2 = new Validator("MaybeString", {
     return new Validator("number").validate(value);
   }
 }).validate("Sean MacIsaac");
+const v3 = new Validator({ firstName: "string" })
+  .extend({ lastName: "string" })
+  .validate({ firstName: "Sean", lastName: "MacIsaac" });
 
 Validator.create({
   Address: function (value) {
@@ -21,3 +24,4 @@ Validator.create({
 
 console.log(v1.invalid)
 console.log(v2.invalid)
+console.log(v3.invalid)
