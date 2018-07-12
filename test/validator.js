@@ -535,6 +535,38 @@ export default function (test) {
       };
     });
 
+  test("Validator: array of undefined")
+    .this(function () {
+      try {
+        const validator = new Validator({
+          list: "undefined[]",
+        });
+
+        const result = validator.validate({
+          list: [],
+        });
+
+        return result;
+      } catch (e) {
+        console.log(e);
+      }
+    })
+    .isDeepEqual(function () {
+      return {
+        invalid: [],
+        type: {
+          list: "undefined[]",
+        },
+        data: {
+          list: [],
+        },
+        isValid: true,
+        value: {
+          list: [],
+        },
+      };
+    });
+
   test("Validator: Array of custom validator")
     .this(function () {
       try {

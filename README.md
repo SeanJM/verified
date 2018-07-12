@@ -9,6 +9,7 @@ A class for validating data created by me for [SafetyWing](https://www.safetywin
 - `object`
 - `any`
 - `null`
+- `undefined`
 - `T[]`
 - `Array<T>`
 
