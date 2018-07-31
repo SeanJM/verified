@@ -1,4 +1,4 @@
-# Verified (13.5k minified)
+# Verified (13.7k minified)
 A class for validating data created by me for [SafetyWing](https://www.safetywing.com/)
 
 ## Supported types
