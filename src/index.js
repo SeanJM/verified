@@ -6,9 +6,11 @@ function createValidators(validators) {
 
   for (var k in validators) {
     if (typeof validators[k] !== "function") {
-      formatted[k] = function (value) {
-        return new Validator(validators[k]).validate(value);
-      };
+      formatted[k] = (function (type, validators) {
+        return function (value) {
+          return new Validator(type, validators).validate(value);
+        };
+      })(validators[k], formatted);
     } else {
       formatted[k] = validators[k];
     }

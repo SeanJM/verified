@@ -1,23 +1,12 @@
 import Validator from "@verified";
 
-Validator.create({
-  "Shoe": function (data) {
-    const validator = new Validator({
-      size: "number",
-      brand: "string",
-    });
-    return validator.validate(data);
-  },
-});
-
 export default function (test) {
   const fn = function () { };
-  test("Validator: function")
-    .this(function () {
-      const validator = new Validator("function");
-      const result = validator.validate(fn);
-      return result;
-    })
+  test("Validator: function", function () {
+    const validator = new Validator("function");
+    const result = validator.validate(fn);
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         type: "function",
@@ -28,12 +17,11 @@ export default function (test) {
       };
     });
 
-  test("Validator: string")
-    .this(function () {
-      const validator = new Validator("string");
-      const result = validator.validate("Sean");
-      return result;
-    })
+  test("Validator: string", function () {
+    const validator = new Validator("string");
+    const result = validator.validate("Sean");
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         type: "string",
@@ -44,12 +32,11 @@ export default function (test) {
       };
     });
 
-  test("Validator: string|number")
-    .this(function () {
-      const validator = new Validator("string|number");
-      const result = validator.validate(1);
-      return result;
-    })
+  test("Validator: string|number", function () {
+    const validator = new Validator("string|number");
+    const result = validator.validate(1);
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         type: "string|number",
@@ -60,12 +47,11 @@ export default function (test) {
       };
     });
 
-  test("Validator: string (invalid)")
-    .this(function () {
-      const validator = new Validator("string");
-      const result = validator.validate(123);
-      return result;
-    })
+  test("Validator: string (invalid)", function () {
+    const validator = new Validator("string");
+    const result = validator.validate(123);
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         type: "string",
@@ -76,22 +62,21 @@ export default function (test) {
       };
     });
 
-  test("Validator: object with a string")
-    .this(function () {
-      try {
-        const validator = new Validator({
-          value: "string",
-        });
+  test("Validator: object with a string", function () {
+    try {
+      const validator = new Validator({
+        value: "string",
+      });
 
-        const result = validator.validate({
-          value: "Sean",
-        });
+      const result = validator.validate({
+        value: "Sean",
+      });
 
-        return result;
-      } catch (e) {
-        console.log(e);
-      }
-    })
+      return result;
+    } catch (e) {
+      console.log(e);
+    }
+  })
     .isDeepEqual(function () {
       return {
         data: { value: "Sean" },
@@ -102,18 +87,17 @@ export default function (test) {
       };
     });
 
-  test("Validator: object with a string (invalid)")
-    .this(function () {
-      const validator = new Validator({
-        value: "string",
-      });
+  test("Validator: object with a string (invalid)", function () {
+    const validator = new Validator({
+      value: "string",
+    });
 
-      const result = validator.validate({
-        value: 123,
-      });
+    const result = validator.validate({
+      value: 123,
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         data: { value: 123 },
@@ -128,19 +112,18 @@ export default function (test) {
       };
     });
 
-  test("Validator: object missing property")
-    .this(function () {
-      const validator = new Validator({
-        firstName: "string",
-        lastName: "string",
-      });
+  test("Validator: object missing property", function () {
+    const validator = new Validator({
+      firstName: "string",
+      lastName: "string",
+    });
 
-      const result = validator.validate({
-        firstName: "Sean",
-      });
+    const result = validator.validate({
+      firstName: "Sean",
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         data: {
@@ -163,19 +146,18 @@ export default function (test) {
       };
     });
 
-  test("Validator: object extra property")
-    .this(function () {
-      const validator = new Validator({
-        firstName: "string",
-      });
+  test("Validator: object extra property", function () {
+    const validator = new Validator({
+      firstName: "string",
+    });
 
-      const result = validator.validate({
-        firstName: "Sean",
-        lastName: "MacIsaac",
-      });
+    const result = validator.validate({
+      firstName: "Sean",
+      lastName: "MacIsaac",
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         data: {
@@ -198,22 +180,21 @@ export default function (test) {
       };
     });
 
-  test("Validator: object with a nested object (invalid)")
-    .this(function () {
-      const validator = new Validator({
-        value: {
-          nested: "string",
-        },
-      });
+  test("Validator: object with a nested object (invalid)", function () {
+    const validator = new Validator({
+      value: {
+        nested: "string",
+      },
+    });
 
-      const result = validator.validate({
-        value: {
-          nested: 123,
-        },
-      });
+    const result = validator.validate({
+      value: {
+        nested: 123,
+      },
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         data: {
@@ -240,127 +221,19 @@ export default function (test) {
       };
     });
 
-  test("Validator: Shoe")
-    .this(function () {
-      try {
-        const validator = new Validator("Shoe");
-
-        const result = validator.validate({
-          size: 12,
-          brand: "Nike",
-        });
-
-        return result;
-      } catch (e) {
-        console.log(e);
-      }
-    })
-    .isDeepEqual(function () {
-      return {
-        data: {
-          size: 12,
-          brand: "Nike",
-        },
-        isValid: true,
-        invalid: [],
-        type: {
-          size: "number",
-          brand: "string",
-        },
-        value: {
-          size: true,
-          brand: true,
-        },
-      };
+  test("Validator: string, number", function () {
+    const validator = new Validator({
+      name: "string",
+      age: "number",
     });
 
-  test("Validator: Shoe, missing property")
-    .this(function () {
-      const validator = new Validator("Shoe");
-
-      const result = validator.validate({
-        brand: "Nike",
-      });
-
-      return result;
-    })
-    .isDeepEqual(function () {
-      return {
-        data: {
-          brand: "Nike",
-        },
-        isValid: false,
-        invalid: [{
-          pathname: "size",
-          value: undefined,
-          expected: "number",
-        }],
-        type: {
-          size: "number",
-          brand: "string",
-        },
-        value: {
-          size: false,
-          brand: true,
-        },
-      };
+    const result = validator.validate({
+      name: "Sean",
+      age: 34,
     });
 
-  test("Validator: Shoe, extra property")
-    .this(function () {
-      try {
-        const validator = new Validator("Shoe");
-
-        const result = validator.validate({
-          owner: "Sean",
-          size: 13,
-          brand: "Nike",
-        });
-
-        return result;
-      } catch (err) {
-        console.log(err);
-      }
-    })
-    .isDeepEqual(function () {
-      return {
-        data: {
-          owner: "Sean",
-          size: 13,
-          brand: "Nike",
-        },
-        isValid: false,
-        invalid: [{
-          pathname: "owner",
-          value: "Sean",
-          expected: undefined,
-        }],
-        type: {
-          size: "number",
-          brand: "string",
-        },
-        value: {
-          owner: false,
-          size: true,
-          brand: true,
-        },
-      };
-    });
-
-  test("Validator: string, number")
-    .this(function () {
-      const validator = new Validator({
-        name: "string",
-        age: "number",
-      });
-
-      const result = validator.validate({
-        name: "Sean",
-        age: 34,
-      });
-
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         invalid: [],
@@ -380,19 +253,18 @@ export default function (test) {
       };
     });
 
-  test("Validator: non existant 'any' property")
-    .this(function () {
-      const validator = new Validator({
-        address: "any",
-      });
+  test("Validator: non existant 'any' property", function () {
+    const validator = new Validator({
+      address: "any",
+    });
 
-      const result = validator.validate({
-        name: "Sean",
-        age: 34,
-      });
+    const result = validator.validate({
+      name: "Sean",
+      age: 34,
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         data: {
@@ -426,18 +298,17 @@ export default function (test) {
       };
     });
 
-  test("Validator: Object instead of Array - string[]")
-    .this(function () {
-      const validator = new Validator({
-        list: "string[]",
-      });
+  test("Validator: Object instead of Array - string[]", function () {
+    const validator = new Validator({
+      list: "string[]",
+    });
 
-      const result = validator.validate({
-        list: { 0: "string" },
-      });
+    const result = validator.validate({
+      list: { 0: "string" },
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         value: {
@@ -460,21 +331,20 @@ export default function (test) {
       };
     });
 
-  test("Validator: array of strings")
-    .this(function () {
-      try {
-        const validator = new Validator("string[]");
+  test("Validator: array of strings", function () {
+    try {
+      const validator = new Validator("string[]");
 
-        const result = validator.validate([
-          "Sean",
-          "Duncan",
-        ]);
+      const result = validator.validate([
+        "Sean",
+        "Duncan",
+      ]);
 
-        return result;
-      } catch (e) {
-        console.log(e);
-      }
-    })
+      return result;
+    } catch (e) {
+      console.log(e);
+    }
+  })
     .isDeepEqual(function () {
       return {
         invalid: [],
@@ -488,21 +358,20 @@ export default function (test) {
       };
     });
 
-  test("Validator: array of strings (invalid)")
-    .this(function () {
-      try {
-        const validator = new Validator("string[]");
+  test("Validator: array of strings (invalid)", function () {
+    try {
+      const validator = new Validator("string[]");
 
-        const result = validator.validate([
-          1,
-          "Duncan",
-        ]);
+      const result = validator.validate([
+        1,
+        "Duncan",
+      ]);
 
-        return result;
-      } catch (err) {
-        console.log(err);
-      }
-    })
+      return result;
+    } catch (err) {
+      console.log(err);
+    }
+  })
     .isDeepEqual(function () {
       return {
         invalid: [{
@@ -520,186 +389,83 @@ export default function (test) {
       };
     });
 
-  test("Validator: array of any (any[])")
-    .this(function () {
-      try {
-        const validator = new Validator({
-          list: "any[]",
-        });
-
-        const result = validator.validate({
-          list: [],
-        });
-
-        return result;
-      } catch (e) {
-        console.log(e);
-      }
-    })
-    .isDeepEqual(function () {
-      return {
-        invalid: [],
-        type: {
-          list: "any[]",
-        },
-        data: {
-          list: [],
-        },
-        isValid: true,
-        value: {
-          list: [],
-        },
-      };
-    });
-
-  test("Validator: array of undefined")
-    .this(function () {
-      try {
-        const validator = new Validator({
-          list: "undefined[]",
-        });
-
-        const result = validator.validate({
-          list: [],
-        });
-
-        return result;
-      } catch (e) {
-        console.log(e);
-      }
-    })
-    .isDeepEqual(function () {
-      return {
-        invalid: [],
-        type: {
-          list: "undefined[]",
-        },
-        data: {
-          list: [],
-        },
-        isValid: true,
-        value: {
-          list: [],
-        },
-      };
-    });
-
-  test("Validator: Array of custom validator")
-    .this(function () {
-      try {
-        const validator = new Validator({
-          cats: "Cat[]",
-        }, {
-          "Cat": function (value) {
-            return new Validator({
-              breed: "string",
-              age: "number",
-            }).validate(value);
-          },
-        });
-
-        const result = validator.validate({
-          cats: [{
-            breed: "Short hair",
-            age: 11,
-          }, {
-            breed: "Maincoon",
-            age: 12,
-          }],
-        });
-
-        return result;
-      } catch (err) {
-        console.log(err);
-      }
-    })
-    .isDeepEqual(function () {
-      return {
-        type: {
-          cats: "Cat[]",
-        },
-        data: {
-          cats: [{
-            breed: "Short hair",
-            age: 11,
-          }, {
-            breed: "Maincoon",
-            age: 12,
-          }],
-        },
-        invalid: [],
-        isValid: true,
-        value: {
-          cats: [{
-            breed: true,
-            age: true,
-          }, {
-            breed: true,
-            age: true,
-          }],
-        },
-      };
-    });
-
-  test("Validator: Array of custom validator (invalid)")
-    .this(function () {
-      try {
-        const validator = new Validator("Shoe[]", {
-          "Shoe": function (value) {
-            return new Validator({
-              size: "number",
-              brand: "string",
-            }).validate(value);
-          },
-        });
-
-        const result = validator.validate([{
-          size: 13,
-        }]);
-
-        return result;
-      } catch (err) {
-        console.log(err);
-      }
-    })
-    .isDeepEqual(function () {
-      return {
-        type: "Shoe[]",
-        data: [{
-          size: 13,
-        }],
-        invalid: [{
-          pathname: "0",
-          value: { size: 13 },
-          expected: {
-            size: "number",
-            brand: "string",
-          },
-        }],
-        isValid: false,
-        value: [{
-          size: true,
-          brand: false,
-        }],
-      };
-    });
-
-  test("Validator: string or number")
-    .this(function () {
+  test("Validator: array of any (any[])", function () {
+    try {
       const validator = new Validator({
-        string: "string|number",
-        number: "string|number",
-        neither: "string|number",
+        list: "any[]",
       });
 
       const result = validator.validate({
-        string: "string",
-        number: 2,
-        neither: null,
+        list: [],
       });
 
       return result;
-    })
+    } catch (e) {
+      console.log(e);
+    }
+  })
+    .isDeepEqual(function () {
+      return {
+        invalid: [],
+        type: {
+          list: "any[]",
+        },
+        data: {
+          list: [],
+        },
+        isValid: true,
+        value: {
+          list: [],
+        },
+      };
+    });
+
+  test("Validator: array of undefined", function () {
+    try {
+      const validator = new Validator({
+        list: "undefined[]",
+      });
+
+      const result = validator.validate({
+        list: [],
+      });
+
+      return result;
+    } catch (e) {
+      console.log(e);
+    }
+  })
+    .isDeepEqual(function () {
+      return {
+        invalid: [],
+        type: {
+          list: "undefined[]",
+        },
+        data: {
+          list: [],
+        },
+        isValid: true,
+        value: {
+          list: [],
+        },
+      };
+    });
+
+  test("Validator: string or number", function () {
+    const validator = new Validator({
+      string: "string|number",
+      number: "string|number",
+      neither: "string|number",
+    });
+
+    const result = validator.validate({
+      string: "string",
+      number: 2,
+      neither: null,
+    });
+
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         invalid: [{
@@ -726,100 +492,21 @@ export default function (test) {
       };
     });
 
-  test("Validator: custom validator")
-    .this(function () {
-      const validator = new Validator({
-        shoe: "Shoe",
-      }, {
-        "Shoe": function (value) {
-          return new Validator({
-            size: "number",
-            brand: "string",
-          }).validate(value);
-        },
-      });
-
-      const result = validator.validate({
-        shoe: {
-          size: 13,
-          brand: "Asics",
-        },
-      });
-
-      return result;
-    })
-    .isDeepEqual(function () {
-      return {
-        data: {
-          shoe: {
-            size: 13,
-            brand: "Asics",
-          },
-        },
-        type: {
-          shoe: "Shoe",
-        },
-        invalid: [],
-        isValid: true,
-        value: {
-          shoe: {
-            size: true,
-            brand: true,
-          },
-        },
-      };
+  test("Validator: nested string", function () {
+    const validator = new Validator({
+      nested: {
+        string: "string",
+      },
     });
 
-  test("Validator: Union typed array")
-    .this(function () {
-      const validator = new Validator({
-        "[string]": "Array<Shoe|string>",
-      });
-
-      const result = validator.validate({
-        shoes: [{ size: 12, brand: "Nike" }],
-        fruits: ["Apple", "Carrots"],
-      });
-
-      return result;
-    })
-    .isDeepEqual(function () {
-      return {
-        invalid: [],
-        type: {
-          "[string]": "Array<Shoe|string>",
-        },
-        data: {
-          shoes: [{ size: 12, brand: "Nike" }],
-          fruits: ["Apple", "Carrots"],
-        },
-        value: {
-          shoes: [{
-            size: true,
-            brand: true,
-          }],
-          fruits: [true, true],
-        },
-        isValid: true,
-      };
+    const result = validator.validate({
+      nested: {
+        string: "value",
+      },
     });
 
-  test("Validator: nested string")
-    .this(function () {
-      const validator = new Validator({
-        nested: {
-          string: "string",
-        },
-      });
-
-      const result = validator.validate({
-        nested: {
-          string: "value",
-        },
-      });
-
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         invalid: [],
@@ -842,22 +529,21 @@ export default function (test) {
       };
     });
 
-  test("Validator: nested string (invalid)")
-    .this(function () {
-      const validator = new Validator({
-        nested: {
-          string: "string",
-        },
-      });
+  test("Validator: nested string (invalid)", function () {
+    const validator = new Validator({
+      nested: {
+        string: "string",
+      },
+    });
 
-      const result = validator.validate({
-        nested: {
-          string: null,
-        },
-      });
+    const result = validator.validate({
+      nested: {
+        string: null,
+      },
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         invalid: [{
@@ -884,22 +570,21 @@ export default function (test) {
       };
     });
 
-  test("Validator: nested array")
-    .this(function () {
-      const v = new Validator({
-        nested: {
-          list: "string[]",
-        },
-      });
+  test("Validator: nested array", function () {
+    const v = new Validator({
+      nested: {
+        list: "string[]",
+      },
+    });
 
-      const result = v.validate({
-        nested: {
-          list: ["value"],
-        },
-      });
+    const result = v.validate({
+      nested: {
+        list: ["value"],
+      },
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         invalid: [],
@@ -922,19 +607,18 @@ export default function (test) {
       };
     });
 
-  test("Validator: extra property")
-    .this(function () {
-      const validator = new Validator({
-        exists: "string",
-      });
+  test("Validator: extra property", function () {
+    const validator = new Validator({
+      exists: "string",
+    });
 
-      const result = validator.validate({
-        exists: "yes",
-        throw: "yes",
-      });
+    const result = validator.validate({
+      exists: "yes",
+      throw: "yes",
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         invalid: [{
@@ -957,18 +641,17 @@ export default function (test) {
       };
     });
 
-  test("Validator: mixed values array")
-    .this(function () {
-      const validator = new Validator({
-        list: "Array<string|number>",
-      });
+  test("Validator: mixed values array", function () {
+    const validator = new Validator({
+      list: "Array<string|number>",
+    });
 
-      const result = validator.validate({
-        list: ["string", 12],
-      });
+    const result = validator.validate({
+      list: ["string", 12],
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         invalid: [],
@@ -985,18 +668,17 @@ export default function (test) {
       };
     });
 
-  test("Validator: mixed values array (invalid)")
-    .this(function () {
-      const validator = new Validator({
-        list: "Array<string|number>",
-      });
+  test("Validator: mixed values array (invalid)", function () {
+    const validator = new Validator({
+      list: "Array<string|number>",
+    });
 
-      const result = validator.validate({
-        list: ["string", 12, undefined],
-      });
+    const result = validator.validate({
+      list: ["string", 12, undefined],
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         invalid: [{
@@ -1017,18 +699,17 @@ export default function (test) {
       };
     });
 
-  test("Validator: empty array - Array<string>")
-    .this(function () {
-      const validator = new Validator({
-        list: "Array<string>",
-      });
+  test("Validator: empty array - Array<string>", function () {
+    const validator = new Validator({
+      list: "Array<string>",
+    });
 
-      const result = validator.validate({
-        list: [],
-      });
+    const result = validator.validate({
+      list: [],
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         invalid: [{
@@ -1049,51 +730,11 @@ export default function (test) {
       };
     });
 
-  test("Validator: custom validator (invalid)")
-    .this(function () {
-      const validator = new Validator({
-        shoe: "Shoe",
-      });
-
-      const result = validator.validate({
-        shoe: {
-          brand: "Asics",
-        },
-      });
-
-      return result;
-    })
-    .isDeepEqual(function () {
-      return {
-        type: {
-          shoe: "Shoe",
-        },
-        data: {
-          shoe: {
-            brand: "Asics",
-          },
-        },
-        invalid: [{
-          pathname: "shoe.size",
-          value: undefined,
-          expected: "number",
-        }],
-        isValid: false,
-        value: {
-          shoe: {
-            size: false,
-            brand: true,
-          },
-        },
-      };
-    });
-
-  test("Validator: Exact string (Asics)")
-    .this(function () {
-      const validator = new Validator("Asics");
-      const result = validator.validate("Asics");
-      return result;
-    })
+  test("Validator: Exact string (Asics)", function () {
+    const validator = new Validator("Asics");
+    const result = validator.validate("Asics");
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         invalid: [],
@@ -1104,24 +745,23 @@ export default function (test) {
       };
     });
 
-  test("Validator: Exact or string (Asics|Nike)")
-    .this(function () {
-      try {
-        const validator = new Validator({
-          shoe1: "Asics|Nike",
-          shoe2: "Asics|Nike",
-        });
+  test("Validator: Exact or string (Asics|Nike)", function () {
+    try {
+      const validator = new Validator({
+        shoe1: "Asics|Nike",
+        shoe2: "Asics|Nike",
+      });
 
-        const result = validator.validate({
-          shoe1: "Asics",
-          shoe2: "Nike",
-        });
+      const result = validator.validate({
+        shoe1: "Asics",
+        shoe2: "Nike",
+      });
 
-        return result;
-      } catch (e) {
-        console.log(e);
-      }
-    })
+      return result;
+    } catch (e) {
+      console.log(e);
+    }
+  })
     .isDeepEqual(function () {
       return {
         invalid: [],
@@ -1141,47 +781,46 @@ export default function (test) {
       };
     });
 
-  test("Validator: Shopping cart item")
-    .this(function () {
-      const validated = new Validator({
-        person: {
-          userID: "number",
-          firstName: "string",
-          lastName: "string",
-        },
-        shoppingCart: {
-          item: "Array<ShoppingCartItem>",
-          isRequired: "null",
-          isSubmitted: "boolean",
-        },
-      }, {
-        ShoppingCartItem: function (value) {
-          return new Validator({
-            id: "number",
-            title: "string",
-          })
-            .validate(value);
-        },
-      });
+  test("Validator: Shopping cart item", function () {
+    const validated = new Validator({
+      person: {
+        userID: "number",
+        firstName: "string",
+        lastName: "string",
+      },
+      shoppingCart: {
+        item: "Array<ShoppingCartItem>",
+        isRequired: "null",
+        isSubmitted: "boolean",
+      },
+    }, {
+      ShoppingCartItem: function (value) {
+        return new Validator({
+          id: "number",
+          title: "string",
+        })
+          .validate(value);
+      },
+    });
 
-      const result = validated.validate({
-        person: {
-          userID: 108292,
-          firstName: "Sean",
-          lastName: "MacIsaac",
-        },
-        shoppingCart: {
-          item: [{
-            id: 1,
-            title: "Nintendo switch",
-          }],
-          isRequired: null,
-          isSubmitted: false,
-        },
-      });
+    const result = validated.validate({
+      person: {
+        userID: 108292,
+        firstName: "Sean",
+        lastName: "MacIsaac",
+      },
+      shoppingCart: {
+        item: [{
+          id: 1,
+          title: "Nintendo switch",
+        }],
+        isRequired: null,
+        isSubmitted: false,
+      },
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         invalid: [],
@@ -1231,21 +870,20 @@ export default function (test) {
       };
     });
 
-  test("Validator: Optional parameter")
-    .this(function () {
-      const validator = new Validator({
-        firstName: "string",
-        "lastName?": "string",
-        "middleName?": "string",
-      });
+  test("Validator: Optional parameter", function () {
+    const validator = new Validator({
+      firstName: "string",
+      "lastName?": "string",
+      "middleName?": "string",
+    });
 
-      const result = validator.validate({
-        firstName: "Sean",
-        middleName: "Alexander",
-      });
+    const result = validator.validate({
+      firstName: "Sean",
+      middleName: "Alexander",
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         invalid: [],
@@ -1266,16 +904,15 @@ export default function (test) {
       };
     });
 
-  test("Validator: Array<string> - property is undefined")
-    .this(function () {
-      const validator = new Validator({
-        value: "Array<string>",
-      });
+  test("Validator: Array<string> - property is undefined", function () {
+    const validator = new Validator({
+      value: "Array<string>",
+    });
 
-      const result = validator.validate({});
+    const result = validator.validate({});
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         data: {},
@@ -1294,16 +931,15 @@ export default function (test) {
       };
     });
 
-  test("Validator: string[] - property is undefined")
-    .this(function () {
-      const validated = new Validator({
-        value: "string[]",
-      });
+  test("Validator: string[] - property is undefined", function () {
+    const validated = new Validator({
+      value: "string[]",
+    });
 
-      const result = validated.validate({});
+    const result = validated.validate({});
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         data: {},
@@ -1322,20 +958,19 @@ export default function (test) {
       };
     });
 
-  test("Validator: 'data' is undefined")
-    .this(function () {
-      try {
-        const validator = new Validator({
-          value: "string",
-        });
+  test("Validator: 'data' is undefined", function () {
+    try {
+      const validator = new Validator({
+        value: "string",
+      });
 
-        const result = validator.validate();
+      const result = validator.validate();
 
-        return result;
-      } catch (e) {
-        console.log(e);
-      }
-    })
+      return result;
+    } catch (e) {
+      console.log(e);
+    }
+  })
     .isDeepEqual(function () {
       return {
         data: {},
@@ -1354,20 +989,19 @@ export default function (test) {
       };
     });
 
-  test("Validator: typed key '[string]'")
-    .this(function () {
-      const validator = new Validator({
-        "[string]": "number",
-        "something?": "string",
-      });
+  test("Validator: typed key '[string]'", function () {
+    const validator = new Validator({
+      "[string]": "number",
+      "something?": "string",
+    });
 
-      const result = validator.validate({
-        anything: 1,
-        something: "Sean",
-      });
+    const result = validator.validate({
+      anything: 1,
+      something: "Sean",
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         isValid: true,
@@ -1387,18 +1021,17 @@ export default function (test) {
       };
     });
 
-  test("Validator: Optional typed key '[string]' - with keys")
-    .this(function () {
-      const validator = new Validator({
-        "[string]?": "string",
-      });
+  test("Validator: Optional typed key '[string]' - with keys", function () {
+    const validator = new Validator({
+      "[string]?": "string",
+    });
 
-      const result = validator.validate({
-        name: "Sean",
-      });
+    const result = validator.validate({
+      name: "Sean",
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         isValid: true,
@@ -1415,16 +1048,15 @@ export default function (test) {
       };
     });
 
-  test("Validator: Optional typed key - empty object")
-    .this(function () {
-      const validator = new Validator({
-        "[string]?": "string",
-      });
+  test("Validator: Optional typed key - empty object", function () {
+    const validator = new Validator({
+      "[string]?": "string",
+    });
 
-      const result = validator.validate({});
+    const result = validator.validate({});
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         isValid: true,
@@ -1437,18 +1069,17 @@ export default function (test) {
       };
     });
 
-  test("Validator: Optional typed key - invalid")
-    .this(function () {
-      const validator = new Validator({
-        "[string]?": "number",
-      });
+  test("Validator: Optional typed key - invalid", function () {
+    const validator = new Validator({
+      "[string]?": "number",
+    });
 
-      const result = validator.validate({
-        name: "Sean",
-      });
+    const result = validator.validate({
+      name: "Sean",
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         isValid: false,
@@ -1469,22 +1100,21 @@ export default function (test) {
       };
     });
 
-  test("Validator: Optional typed key - with siblings")
-    .this(function () {
-      const validator = new Validator({
-        gender: "male|female",
-        favoriteFruits: "Array<Apples|Chery>",
-        "[string]?": "string",
-      });
+  test("Validator: Optional typed key - with siblings", function () {
+    const validator = new Validator({
+      gender: "male|female",
+      favoriteFruits: "Array<Apples|Chery>",
+      "[string]?": "string",
+    });
 
-      const result = validator.validate({
-        name: "Sean",
-        gender: "male",
-        favoriteFruits: ["Apples"],
-      });
+    const result = validator.validate({
+      name: "Sean",
+      gender: "male",
+      favoriteFruits: ["Apples"],
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         isValid: true,
@@ -1507,23 +1137,22 @@ export default function (test) {
       };
     });
 
-  test("Validator: Optional typed key - with siblings (invalid)")
-    .this(function () {
-      const validator = new Validator({
-        gender: "male|female",
-        favoriteFruits: "Array<Apples|Chery>",
-        "[string]?": "string",
-      });
+  test("Validator: Optional typed key - with siblings (invalid)", function () {
+    const validator = new Validator({
+      gender: "male|female",
+      favoriteFruits: "Array<Apples|Chery>",
+      "[string]?": "string",
+    });
 
-      const result = validator.validate({
-        firstName: "Sean",
-        age: 13,
-        gender: "male",
-        favoriteFruits: ["Apples"],
-      });
+    const result = validator.validate({
+      firstName: "Sean",
+      age: 13,
+      gender: "male",
+      favoriteFruits: ["Apples"],
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         isValid: false,
@@ -1552,19 +1181,18 @@ export default function (test) {
       };
     });
 
-  test("Validator: Optional typed key")
-    .this(function () {
-      const validator = new Validator({
-        "[number]?": "object",
-      });
+  test("Validator: Optional typed key", function () {
+    const validator = new Validator({
+      "[number]?": "object",
+    });
 
-      const result = validator.validate({
-        0: {},
-        "1": {},
-      });
+    const result = validator.validate({
+      0: {},
+      "1": {},
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         isValid: true,
@@ -1583,35 +1211,34 @@ export default function (test) {
       };
     });
 
-  test("Validator: object '[string]: object'")
-    .this(function () {
-      const validator = new Validator({
-        "[string]": {
-          age: "number",
-          name: "string",
-          "favoriteMeal?": "string",
-        },
-      });
+  test("Validator: object '[string]: object'", function () {
+    const validator = new Validator({
+      "[string]": {
+        age: "number",
+        name: "string",
+        "favoriteMeal?": "string",
+      },
+    });
 
-      const result = validator.validate({
-        user1: {
-          age: 34,
-          name: "Sean",
-        },
-        user2: {
-          age: 31,
-          name: "Tim",
-          home: "Canada",
-        },
-        user3: {
-          age: 31,
-          name: "Tim",
-          favoriteMeal: "Spaghetti",
-        },
-      });
+    const result = validator.validate({
+      user1: {
+        age: 34,
+        name: "Sean",
+      },
+      user2: {
+        age: 31,
+        name: "Tim",
+        home: "Canada",
+      },
+      user3: {
+        age: 31,
+        name: "Tim",
+        favoriteMeal: "Spaghetti",
+      },
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         isValid: false,
@@ -1662,20 +1289,19 @@ export default function (test) {
       };
     });
 
-  test("Validator: object null")
-    .this(function () {
-      const validator = new Validator({
-        id: "any",
-        value: "any",
-      });
+  test("Validator: object null", function () {
+    const validator = new Validator({
+      id: "any",
+      value: "any",
+    });
 
-      const result = validator.validate({
-        id: null,
-        value: null,
-      });
+    const result = validator.validate({
+      id: null,
+      value: null,
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         isValid: true,
@@ -1695,18 +1321,17 @@ export default function (test) {
       };
     });
 
-  test("Validator: false value")
-    .this(function () {
-      const validator = new Validator({
-        id: "boolean",
-      });
+  test("Validator: false value", function () {
+    const validator = new Validator({
+      id: "boolean",
+    });
 
-      const result = validator.validate({
-        id: false,
-      });
+    const result = validator.validate({
+      id: false,
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         isValid: true,
@@ -1723,22 +1348,21 @@ export default function (test) {
       };
     });
 
-  test("Validator: Fixed length array")
-    .this(function () {
-      const validator = new Validator([{
-        name: "string",
-      }, {
-        name: "string",
-      }]);
+  test("Validator: Fixed length array", function () {
+    const validator = new Validator([{
+      name: "string",
+    }, {
+      name: "string",
+    }]);
 
-      const result = validator.validate([{
-        name: "Sean",
-      }, {
-        name: "John",
-      }]);
+    const result = validator.validate([{
+      name: "Sean",
+    }, {
+      name: "John",
+    }]);
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         isValid: true,
@@ -1757,24 +1381,23 @@ export default function (test) {
       };
     });
 
-  test("Validator: Fixed length array (invalid)")
-    .this(function () {
-      const validator = new Validator([{
-        name: "string",
-      }, {
-        name: "string",
-      }]);
+  test("Validator: Fixed length array (invalid)", function () {
+    const validator = new Validator([{
+      name: "string",
+    }, {
+      name: "string",
+    }]);
 
-      const result = validator.validate([{
-        name: "Sean",
-      }, {
-        name: "John",
-      }, {
-        name: "Jim",
-      }]);
+    const result = validator.validate([{
+      name: "Sean",
+    }, {
+      name: "John",
+    }, {
+      name: "Jim",
+    }]);
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         isValid: false,
@@ -1801,24 +1424,23 @@ export default function (test) {
       };
     });
 
-  test("Validator: Fixed length array, custom type (invalid)")
-    .this(function () {
-      const validator = new Validator(["Person", "Person"], {
-        Person: function (value) {
-          return new Validator({ name: "string" }).validate(value);
-        },
-      });
+  test("Validator: Fixed length array, custom type (invalid)", function () {
+    const validator = new Validator(["Person", "Person"], {
+      Person: function (value) {
+        return new Validator({ name: "string" }).validate(value);
+      },
+    });
 
-      const result = validator.validate([{
-        name: "Sean",
-      }, {
-        name: "John",
-      }, {
-        name: "Jim",
-      }]);
+    const result = validator.validate([{
+      name: "Sean",
+    }, {
+      name: "John",
+    }, {
+      name: "Jim",
+    }]);
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         isValid: false,
@@ -1841,18 +1463,17 @@ export default function (test) {
       };
     });
 
-  test("Validator: Boolean")
-    .this(function () {
-      const validator = new Validator({
-        bool: "boolean",
-      });
+  test("Validator: Boolean", function () {
+    const validator = new Validator({
+      bool: "boolean",
+    });
 
-      const result = validator.validate({
-        bool: false,
-      });
+    const result = validator.validate({
+      bool: false,
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         isValid: true,
@@ -1869,24 +1490,23 @@ export default function (test) {
       };
     });
 
-  test("Validator: Custom validator as object")
-    .this(function () {
-      const validator = new Validator({
-        food: "Cake",
-      }, {
-        Cake: {
-          flavor: "string",
-        },
-      });
+  test("Validator: Custom validator as object", function () {
+    const validator = new Validator({
+      food: "Cake",
+    }, {
+      Cake: {
+        flavor: "string",
+      },
+    });
 
-      const result = validator.validate({
-        food: {
-          flavor: "chocolate",
-        },
-      });
+    const result = validator.validate({
+      food: {
+        flavor: "chocolate",
+      },
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         value: {
@@ -1907,31 +1527,30 @@ export default function (test) {
       };
     });
 
-  test("Validator: Invalid object")
-    .this(function () {
-      try {
-        const validator = new Validator({
-          address: {
-            city: "Montreal",
-            country: "CA",
-            line1: "2171 Rue Sherbrooke Est",
-            line2: "",
-            state: "Quebec",
-            zipCode: "H2K1C8",
-          },
-          citizenshipCountry: "CA",
-          homeCountry: "CA",
-        });
+  test("Validator: Invalid object", function () {
+    try {
+      const validator = new Validator({
+        address: {
+          city: "Montreal",
+          country: "CA",
+          line1: "2171 Rue Sherbrooke Est",
+          line2: "",
+          state: "Quebec",
+          zipCode: "H2K1C8",
+        },
+        citizenshipCountry: "CA",
+        homeCountry: "CA",
+      });
 
-        const result = validator.validate({
-          consentToMarketingAndConditions: true,
-        });
+      const result = validator.validate({
+        consentToMarketingAndConditions: true,
+      });
 
-        return result;
-      } catch (e) {
-        console.log(e);
-      }
-    })
+      return result;
+    } catch (e) {
+      console.log(e);
+    }
+  })
     .isDeepEqual(function () {
       return {
         isValid: false,
@@ -2003,272 +1622,270 @@ export default function (test) {
       };
     });
 
-  test("Validator: ACID Test (pass)")
-    .this(function () {
-      const validator = new Validator({
-        cats: "Cat[]",
-        owner: "Owner",
-      }, {
-        Address: function (value) {
-          return new Validator({
-            line1: "string",
-            "line1?": "string",
-            country: "string",
-            state: "string",
-            city: "string",
-            zipCode: "ZipCode",
-          }, this.validators).validate(value);
-        },
+  test("Validator: ACID Test (pass)", function () {
+    const validator = new Validator({
+      cats: "Cat[]",
+      owner: "Owner",
+    }, {
+      Address: function (value) {
+        return new Validator({
+          line1: "string",
+          "line1?": "string",
+          country: "string",
+          state: "string",
+          city: "string",
+          zipCode: "ZipCode",
+        }, this.validators).validate(value);
+      },
 
-        ZipCode: function (value) {
-          return /^[0-9]{5}$/.test(value);
-        },
+      ZipCode: function (value) {
+        return /^[0-9]{5}$/.test(value);
+      },
 
-        CatFood: function (value) {
-          return [
-            "WholeHearted",
-            "Hill's",
-            "Merrick",
-            "Natural Balance",
-            "Blue Buffalo",
-          ].indexOf(value) > -1;
-        },
+      CatFood: function (value) {
+        return [
+          "WholeHearted",
+          "Hill's",
+          "Merrick",
+          "Natural Balance",
+          "Blue Buffalo",
+        ].indexOf(value) > -1;
+      },
 
-        Cat: function (value) {
-          return new Validator({
-            name: "string",
-            age: "number",
-            breed: "CatBreed",
-            catFood: "CatFood",
-            "siblings?": "Array<Cat>",
-          }, this.validators)
-            .validate(value);
-        },
+      Cat: function (value) {
+        return new Validator({
+          name: "string",
+          age: "number",
+          breed: "CatBreed",
+          catFood: "CatFood",
+          "siblings?": "Array<Cat>",
+        }, this.validators)
+          .validate(value);
+      },
 
-        CatBreed: function (value) {
-          return [
-            "Abyssinian",
-            "Siamese",
-            "Devon Rex",
-            "European Shorthair",
-          ].indexOf(value) > -1;
-        },
+      CatBreed: function (value) {
+        return [
+          "Abyssinian",
+          "Siamese",
+          "Devon Rex",
+          "European Shorthair",
+        ].indexOf(value) > -1;
+      },
 
-        Contact: function (value) {
-          return new Validator({
-            firstName: "string",
-            lastName: "string",
-            relationship: "string",
-            phoneNumber: "string",
-            "emailAddress?": "Email",
-          }, this.validators).validate(value);
-        },
+      Contact: function (value) {
+        return new Validator({
+          firstName: "string",
+          lastName: "string",
+          relationship: "string",
+          phoneNumber: "string",
+          "emailAddress?": "Email",
+        }, this.validators).validate(value);
+      },
 
-        Email: function (value) {
-          return /@[a-z]+\.([a-z]{2}|[a-z]{3})$/.test(value);
-        },
+      Email: function (value) {
+        return /@[a-z]+\.([a-z]{2}|[a-z]{3})$/.test(value);
+      },
 
-        Owner: function (value) {
-          return new Validator({
-            firstName: "string",
-            lastName: "string",
-            age: "number|string",
-            address: "Address",
-            emergencyContacts: "Contact[]",
-          }, this.validators).validate(value);
-        },
-      })
-        .validate({
-          cats: [{
-            name: "Sammy",
+      Owner: function (value) {
+        return new Validator({
+          firstName: "string",
+          lastName: "string",
+          age: "number|string",
+          address: "Address",
+          emergencyContacts: "Contact[]",
+        }, this.validators).validate(value);
+      },
+    })
+      .validate({
+        cats: [{
+          name: "Sammy",
+          age: 12,
+          breed: "Siamese",
+          catFood: "WholeHearted",
+          siblings: [{
+            name: "Jerry",
             age: 12,
             breed: "Siamese",
             catFood: "WholeHearted",
-            siblings: [{
-              name: "Jerry",
-              age: 12,
-              breed: "Siamese",
-              catFood: "WholeHearted",
-            }],
-          }, {
-            name: "Lynx",
-            age: 18,
-            breed: "Abyssinian",
-            catFood: "Blue Buffalo",
-          }, {
-            name: "Mittens",
+          }],
+        }, {
+          name: "Lynx",
+          age: 18,
+          breed: "Abyssinian",
+          catFood: "Blue Buffalo",
+        }, {
+          name: "Mittens",
+          age: 3,
+          breed: "European Shorthair",
+          catFood: "Natural Balance",
+          siblings: [{
+            name: "Boots",
             age: 3,
             breed: "European Shorthair",
             catFood: "Natural Balance",
-            siblings: [{
-              name: "Boots",
-              age: 3,
-              breed: "European Shorthair",
-              catFood: "Natural Balance",
-            }],
           }],
-          owner: {
-            firstName: "John",
+        }],
+        owner: {
+          firstName: "John",
+          lastName: "Arbuckle",
+          age: 39,
+          emergencyContacts: [{
+            firstName: "Maryse",
             lastName: "Arbuckle",
-            age: 39,
-            emergencyContacts: [{
-              firstName: "Maryse",
-              lastName: "Arbuckle",
-              relationship: "Mother",
-              phoneNumber: "613 734 7245",
-              emailAddress: "marysearbuckle@gmail.com",
-            }, {
-              firstName: "David",
-              lastName: "Arbuckle",
-              relationship: "Fatjer",
-              phoneNumber: "613 734 7245",
-            }],
-            address: {
-              line1: "75 Sunshine City Street",
-              country: "United States of America",
-              state: "New York",
-              city: "New York",
-              zipCode: "32456",
-            },
+            relationship: "Mother",
+            phoneNumber: "613 734 7245",
+            emailAddress: "marysearbuckle@gmail.com",
+          }, {
+            firstName: "David",
+            lastName: "Arbuckle",
+            relationship: "Fatjer",
+            phoneNumber: "613 734 7245",
+          }],
+          address: {
+            line1: "75 Sunshine City Street",
+            country: "United States of America",
+            state: "New York",
+            city: "New York",
+            zipCode: "32456",
           },
-        });
-      return validator.isValid;
-    })
+        },
+      });
+    return validator.isValid;
+  })
     .isEqual(function () {
       return true;
     });
 
-  test("Validator: ACID Test (fail)")
-    .this(function () {
-      const validator = new Validator({
-        cats: "Cat[]",
-        owner: "Owner",
-      }, {
-        Address: function (value) {
-          return new Validator({
-            line1: "string",
-            "line1?": "string",
-            country: "string",
-            state: "string",
-            city: "string",
-            zipCode: "ZipCode",
-          }, this.validators).validate(value);
-        },
+  test("Validator: ACID Test (fail)", function () {
+    const validator = new Validator({
+      cats: "Cat[]",
+      owner: "Owner",
+    }, {
+      Address: function (value) {
+        return new Validator({
+          line1: "string",
+          "line1?": "string",
+          country: "string",
+          state: "string",
+          city: "string",
+          zipCode: "ZipCode",
+        }, this.validators).validate(value);
+      },
 
-        ZipCode: function (value) {
-          return /^[0-9]{5}$/.test(value);
-        },
+      ZipCode: function (value) {
+        return /^[0-9]{5}$/.test(value);
+      },
 
-        CatFood: function (value) {
-          return [
-            "WholeHearted",
-            "Hill's",
-            "Merrick",
-            "Natural Balance",
-            "Blue Buffalo",
-          ].indexOf(value) > -1;
-        },
+      CatFood: function (value) {
+        return [
+          "WholeHearted",
+          "Hill's",
+          "Merrick",
+          "Natural Balance",
+          "Blue Buffalo",
+        ].indexOf(value) > -1;
+      },
 
-        Cat: function (value) {
-          return new Validator({
-            name: "string",
-            age: "number",
-            breed: "CatBreed",
-            catFood: "CatFood",
-            "siblings?": "Array<Cat>",
-          }, this.validators)
-            .validate(value);
-        },
+      Cat: function (value) {
+        return new Validator({
+          name: "string",
+          age: "number",
+          breed: "CatBreed",
+          catFood: "CatFood",
+          "siblings?": "Array<Cat>",
+        }, this.validators)
+          .validate(value);
+      },
 
-        CatBreed: function (value) {
-          return [
-            "Abyssinian",
-            "Siamese",
-            "Devon Rex",
-            "European Shorthair",
-          ].indexOf(value) > -1;
-        },
+      CatBreed: function (value) {
+        return [
+          "Abyssinian",
+          "Siamese",
+          "Devon Rex",
+          "European Shorthair",
+        ].indexOf(value) > -1;
+      },
 
-        Contact: function (value) {
-          return new Validator({
-            firstName: "string",
-            lastName: "string",
-            relationship: "string",
-            phoneNumber: "string",
-            "emailAddress?": "Email",
-          }, this.validators).validate(value);
-        },
+      Contact: function (value) {
+        return new Validator({
+          firstName: "string",
+          lastName: "string",
+          relationship: "string",
+          phoneNumber: "string",
+          "emailAddress?": "Email",
+        }, this.validators).validate(value);
+      },
 
-        Email: function (value) {
-          return /@[a-z]+\.([a-z]{2}|[a-z]{3})$/.test(value);
-        },
+      Email: function (value) {
+        return /@[a-z]+\.([a-z]{2}|[a-z]{3})$/.test(value);
+      },
 
-        Owner: function (value) {
-          return new Validator({
-            firstName: "string",
-            lastName: "string",
-            age: "number|string",
-            address: "Address",
-            emergencyContacts: "Contact[]",
-          }, this.validators).validate(value);
-        },
-      })
-        .validate({
-          cats: [{
-            // Removed 'age' to fail the ACID test
-            name: "Sammy",
+      Owner: function (value) {
+        return new Validator({
+          firstName: "string",
+          lastName: "string",
+          age: "number|string",
+          address: "Address",
+          emergencyContacts: "Contact[]",
+        }, this.validators).validate(value);
+      },
+    })
+      .validate({
+        cats: [{
+          // Removed 'age' to fail the ACID test
+          name: "Sammy",
+          breed: "Siamese",
+          catFood: "WholeHearted",
+          siblings: [{
+            name: "Jerry",
+            age: 12,
             breed: "Siamese",
             catFood: "WholeHearted",
-            siblings: [{
-              name: "Jerry",
-              age: 12,
-              breed: "Siamese",
-              catFood: "WholeHearted",
-            }],
-          }, {
-            name: "Lynx",
-            age: 18,
-            breed: "Abyssinian",
-            catFood: "Blue Buffalo",
-          }, {
-            name: "Mittens",
+          }],
+        }, {
+          name: "Lynx",
+          age: 18,
+          breed: "Abyssinian",
+          catFood: "Blue Buffalo",
+        }, {
+          name: "Mittens",
+          age: 3,
+          breed: "European Shorthair",
+          catFood: "Natural Balance",
+          siblings: [{
+            name: "Boots",
             age: 3,
             breed: "European Shorthair",
             catFood: "Natural Balance",
-            siblings: [{
-              name: "Boots",
-              age: 3,
-              breed: "European Shorthair",
-              catFood: "Natural Balance",
-            }],
           }],
-          owner: {
-            firstName: "John",
+        }],
+        owner: {
+          firstName: "John",
+          lastName: "Arbuckle",
+          age: 39,
+          emergencyContacts: [{
+            firstName: "Maryse",
             lastName: "Arbuckle",
-            age: 39,
-            emergencyContacts: [{
-              firstName: "Maryse",
-              lastName: "Arbuckle",
-              relationship: "Mother",
-              phoneNumber: "613 734 7245",
-              emailAddress: "marysearbuckle@gmail.com",
-            }, {
-              firstName: "David",
-              lastName: "Arbuckle",
-              relationship: "Fatjer",
-              phoneNumber: "613 734 7245",
-            }],
-            address: {
-              line1: "75 Sunshine City Street",
-              country: "United States of America",
-              state: "New York",
-              city: "New York",
-              zipCode: "32456",
-            },
+            relationship: "Mother",
+            phoneNumber: "613 734 7245",
+            emailAddress: "marysearbuckle@gmail.com",
+          }, {
+            firstName: "David",
+            lastName: "Arbuckle",
+            relationship: "Fatjer",
+            phoneNumber: "613 734 7245",
+          }],
+          address: {
+            line1: "75 Sunshine City Street",
+            country: "United States of America",
+            state: "New York",
+            city: "New York",
+            zipCode: "32456",
           },
-        });
-      return validator.isValid;
-    })
+        },
+      });
+    return validator.isValid;
+  })
     .isEqual(function () {
       return false;
     });
