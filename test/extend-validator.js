@@ -18,23 +18,22 @@ Validator.create({
 });
 
 export default function (test) {
-  test("Validator: extend")
-    .this(function () {
-      const validator = new Validator({
-        firstName: "string",
-        lastName: "string",
-      }).extend("CreditCard");
+  test("Validator: extend", function () {
+    const validator = new Validator({
+      firstName: "string",
+      lastName: "string",
+    }).extend("CreditCard");
 
-      const result = validator.validate({
-        firstName: "Sean",
-        lastName: "MacIsaac",
-        creditCardNumber: "450010001000",
-        creditCardExpiryMonth: "05",
-        creditCardExpiryYear: "22",
-      });
+    const result = validator.validate({
+      firstName: "Sean",
+      lastName: "MacIsaac",
+      creditCardNumber: "450010001000",
+      creditCardExpiryMonth: "05",
+      creditCardExpiryYear: "22",
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         value: {
@@ -63,23 +62,22 @@ export default function (test) {
       };
     });
 
-  test("Validator: extend object")
-    .this(function () {
-      const validator = new Validator({
-        firstName: "string",
-        lastName: "string",
-      }).extend({
-        dateOfBirth: "string",
-      });
+  test("Validator: extend object", function () {
+    const validator = new Validator({
+      firstName: "string",
+      lastName: "string",
+    }).extend({
+      dateOfBirth: "string",
+    });
 
-      const result = validator.validate({
-        firstName: "Sean",
-        lastName: "MacIsaac",
-        dateOfBirth: "1984-08-13",
-      });
+    const result = validator.validate({
+      firstName: "Sean",
+      lastName: "MacIsaac",
+      dateOfBirth: "1984-08-13",
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         value: {
@@ -102,21 +100,20 @@ export default function (test) {
       };
     });
 
-  test("Validator: literal type")
-    .this(function () {
-      const validator = new Validator("Cat").extend({
-        favoriteFood: "string",
-      });
+  test("Validator: literal type", function () {
+    const validator = new Validator("Cat").extend({
+      favoriteFood: "string",
+    });
 
-      const result = validator.validate({
-        name: "Fluffy",
-        breed: "Siamese",
-        age: 7,
-        favoriteFood: "Whiskas",
-      });
+    const result = validator.validate({
+      name: "Fluffy",
+      breed: "Siamese",
+      age: 7,
+      favoriteFood: "Whiskas",
+    });
 
-      return result;
-    })
+    return result;
+  })
     .isDeepEqual(function () {
       return {
         value: {
@@ -142,38 +139,35 @@ export default function (test) {
       };
     });
 
-  test("Validator: invalid arg, neither types are objects")
-    .this(function () {
-      try {
-        new Validator("string").extend("number");
-      } catch (e) {
-        return e.message;
-      }
-    })
+  test("Validator: invalid arg, neither types are objects", function () {
+    try {
+      new Validator("string").extend("number");
+    } catch (e) {
+      return e.message;
+    }
+  })
     .isDeepEqual(function () {
       return "Cannot extend 'type', both the validator type and extended type are not objects.";
     });
 
-  test("Validator: invalid arg, extend type is string")
-    .this(function () {
-      try {
-        new Validator({ name: "string" }).extend("number");
-      } catch (e) {
-        return e.message;
-      }
-    })
+  test("Validator: invalid arg, extend type is string", function () {
+    try {
+      new Validator({ name: "string" }).extend("number");
+    } catch (e) {
+      return e.message;
+    }
+  })
     .isDeepEqual(function () {
       return "Cannot extend 'type' with current argument, an extended type must be an object.";
     });
 
-  test("Validator: invalid arg, this.type is string")
-    .this(function () {
-      try {
-        new Validator("string").extend({ name: "string" });
-      } catch (e) {
-        return e.message;
-      }
-    })
+  test("Validator: invalid arg, this.type is string", function () {
+    try {
+      new Validator("string").extend({ name: "string" });
+    } catch (e) {
+      return e.message;
+    }
+  })
     .isDeepEqual(function () {
       return "Cannot extend 'type', your validator type is not an object.";
     });
