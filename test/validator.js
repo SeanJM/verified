@@ -1869,6 +1869,44 @@ export default function (test) {
       };
     });
 
+  test("Validator: Custom validator as object")
+    .this(function () {
+      const validator = new Validator({
+        food: "Cake",
+      }, {
+        Cake: {
+          flavor: "string",
+        },
+      });
+
+      const result = validator.validate({
+        food: {
+          flavor: "chocolate",
+        },
+      });
+
+      return result;
+    })
+    .isDeepEqual(function () {
+      return {
+        value: {
+          food: {
+            flavor: true,
+          },
+        },
+        data: {
+          food: {
+            flavor: "chocolate",
+          },
+        },
+        type: {
+          food: "Cake",
+        },
+        isValid: true,
+        invalid: [],
+      };
+    });
+
   test("Validator: Invalid object")
     .this(function () {
       try {

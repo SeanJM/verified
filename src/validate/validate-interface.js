@@ -7,6 +7,7 @@ function validateInterfaceType(props) {
   const key = pathname.slice(-1)[0];
   const parent = get(data, pathname.slice(0, -1));
   const response = validators[type].call(props, value, key, parent);
+
   return isValidationResponse(response)
     ? {
       type: response.type,

@@ -108,7 +108,20 @@ Validator.create({
     return new Validator(types).validate(value)
   }
 });
+```
 
+Or you can define the type literally
+
+```js
+Validator.create({
+  Shoe: {
+    size: "number",
+    brand: "string"
+  }
+});
+```
+
+```js
 new Validator({
   shoes: "Shoe[]"
 })
@@ -158,7 +171,17 @@ const validator = new Validator({
   shoes: "Shoe[]",
 }, {
   Shoe: function (value) {
-    ...
+    const types = {
+      size: "number",
+      brand: "string"
+    };
+    return new Validator(types).validate(value)
+  },
+  // Or as an object literal
+  Boot: {
+    size: "number",
+    brand: "string",
+    season: "string"
   }
 });
 ```

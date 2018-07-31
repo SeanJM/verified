@@ -1,10 +1,27 @@
 import { STATIC_VALIDATOR, INVALID } from "@constants";
 import { validateByType } from "@validate";
 
+function createValidators(validators) {
+  const formatted = {};
+
+  for (var k in validators) {
+    if (typeof validators[k] !== "function") {
+      formatted[k] = function (value) {
+        return new Validator(validators[k]).validate(value);
+      };
+    } else {
+      formatted[k] = validators[k];
+    }
+  }
+
+  return formatted;
+}
+
 export default class Validator {
   static create(object) {
-    for (var name in object) {
-      STATIC_VALIDATOR[name] = object[name];
+    const validators = createValidators(object);
+    for (var name in validators) {
+      STATIC_VALIDATOR[name] = validators[name];
     }
   }
 
@@ -13,7 +30,7 @@ export default class Validator {
    * @param {object=} validators The instance validators
    */
   constructor(type, validators) {
-    this.validators = Object.assign({}, STATIC_VALIDATOR, validators);
+    this.validators = Object.assign({}, STATIC_VALIDATOR, createValidators(validators));
     this.type = type;
   }
 
