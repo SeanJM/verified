@@ -1,4 +1,4 @@
-# Verified
+# Verified (13.5k minified)
 A class for validating data created by me for [SafetyWing](https://www.safetywing.com/)
 
 ## Supported types
@@ -10,6 +10,7 @@ A class for validating data created by me for [SafetyWing](https://www.safetywin
 - `any`
 - `null`
 - `undefined`
+- `function`
 - `T[]`
 - `Array<T>`
 

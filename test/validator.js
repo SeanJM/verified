@@ -11,6 +11,23 @@ Validator.create({
 });
 
 export default function (test) {
+  const fn = function () { };
+  test("Validator: function")
+    .this(function () {
+      const validator = new Validator("function");
+      const result = validator.validate(fn);
+      return result;
+    })
+    .isDeepEqual(function () {
+      return {
+        type: "function",
+        data: fn,
+        isValid: true,
+        invalid: [],
+        value: true,
+      };
+    });
+
   test("Validator: string")
     .this(function () {
       const validator = new Validator("string");

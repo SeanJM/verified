@@ -33,6 +33,10 @@ export const STATIC_VALIDATOR = {
     return typeof data === "boolean";
   },
 
+  "function": function (data) {
+    return typeof data === "function";
+  },
+
   "object": function (data) {
     return typeof data === "object" && !Array.isArray(data);
   },
