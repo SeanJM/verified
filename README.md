@@ -69,7 +69,7 @@ const validator = new Validator({
   fullName: "FullName",
   zipCode: "ZipCode|PostalCode",
   medicalHistory: "MedicalHistory[]",
-});
+}, types);
 ```
 
 ## Object structure
