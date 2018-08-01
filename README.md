@@ -30,6 +30,48 @@ isList.validate([0, 1, 2, 3]).isValid -> true
 isObject.validate({ cat: "Meow" }).isValid -> true
 ```
 
+### A more detailed example
+```js
+import Validator from "verified";
+
+// Let's imagine we have some data coming from the user on our server
+const types = {
+  "UserID": function (value) {
+    return /^A([0-9]{5}|[0-9]{8})$/.test(value);
+  },
+
+  "FullName": function (value) {
+    return /^[A-Z][a-z]+ [A-Z][a-z]+$/.test(value);
+  },
+
+  "ZipCode": function (value) {
+    return /^[0-9]${5}/.test(value);
+  },
+
+  "PostalCode": function (value) {
+    return /^[A-Z][0-9][A-Z] [0-9][A-Z][0-9]$/.test(value);
+  },
+
+  "Date": function (value) {
+    return new Date(value).toString() !== "Invalid Date";
+  },
+
+  "MedicalHistory": {
+    doctor: "string",
+    reason: "string",
+    date: "Date",
+    hospital: "string",
+  }
+};
+
+const validator = new Validator({
+  userID: "UserID",
+  fullName: "FullName",
+  zipCode: "ZipCode|PostalCode",
+  medicalHistory: "MedicalHistory[]",
+});
+```
+
 ## Object structure
 
 ### Valid
