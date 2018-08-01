@@ -1,16 +1,18 @@
 import { STATIC_VALIDATOR, INVALID } from "@constants";
 import { validateByType } from "@validate";
 
+function validatorToFunction(type, validators) {
+  return function (value) {
+    return new Validator(type, validators).validate(value);
+  };
+}
+
 function createValidators(validators) {
   const formatted = {};
 
   for (var k in validators) {
     if (typeof validators[k] !== "function") {
-      formatted[k] = (function (type, validators) {
-        return function (value) {
-          return new Validator(type, validators).validate(value);
-        };
-      })(validators[k], formatted);
+      formatted[k] = validatorToFunction(validators[k], formatted);
     } else {
       formatted[k] = validators[k];
     }
