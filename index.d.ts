@@ -12,8 +12,12 @@ interface ValidatorResponse {
   isValid: boolean;
 }
 
+type ValidatorFunction = (value: any, key: string, parent: any) => ValidatorResponse | boolean;
+
+type ValidatorInterface = ValidatorFunction | any;
+
 interface Validators {
-  [key: string]: (value: any, key: string, parent: any) => ValidatorResponse | boolean
+  [key: string]: ValidatorInterface
 }
 
 declare module "verified" {
