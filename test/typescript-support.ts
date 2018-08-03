@@ -19,7 +19,9 @@ Validator.create({
     return new Validator({
       line1: "string"
     }).validate(value);
-  }
+  },
+
+  Date: "string"
 });
 
 console.log(v1.invalid)
