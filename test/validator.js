@@ -47,6 +47,21 @@ export default function (test) {
       };
     });
 
+  test("Validator: string | number", function () {
+    const validator = new Validator("string | number");
+    const result = validator.validate(1);
+    return result;
+  })
+    .isDeepEqual(function () {
+      return {
+        type: "string | number",
+        data: 1,
+        isValid: true,
+        invalid: [],
+        value: true,
+      };
+    });
+
   test("Validator: string (invalid)", function () {
     const validator = new Validator("string");
     const result = validator.validate(123);
