@@ -25,7 +25,7 @@ export function getTypeList(type) {
       while (i < n && type[i] !== "|") {
         i += 1;
       }
-      typeList.push(type.substring(start, i));
+      typeList.push(type.substring(start, i).trim());
     }
   }
 
