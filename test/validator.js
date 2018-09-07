@@ -62,6 +62,15 @@ export default function (test) {
       };
     });
 
+  test("Validator: | string | number", function () {
+    const validator = new Validator("| string | number");
+    const result = [];
+    result.push(validator.validate(1).isValid);
+    result.push(validator.validate("value").isValid);
+    return result;
+  })
+    .isDeepEqual([true, true]);
+
   test("Validator: string (invalid)", function () {
     const validator = new Validator("string");
     const result = validator.validate(123);
@@ -656,7 +665,7 @@ export default function (test) {
       };
     });
 
-  test("Validator: mixed values array", function () {
+  test("Validator: mixed values array (Array<string|number>)", function () {
     const validator = new Validator({
       list: "Array<string|number>",
     });
@@ -672,6 +681,33 @@ export default function (test) {
         invalid: [],
         type: {
           list: "Array<string|number>",
+        },
+        data: {
+          list: ["string", 12],
+        },
+        isValid: true,
+        value: {
+          list: [true, true],
+        },
+      };
+    });
+
+  test("Validator: mixed values array (Array< string | number >)", function () {
+    const validator = new Validator({
+      list: "Array< string | number >",
+    });
+
+    const result = validator.validate({
+      list: ["string", 12],
+    });
+
+    return result;
+  })
+    .isDeepEqual(function () {
+      return {
+        invalid: [],
+        type: {
+          list: "Array< string | number >",
         },
         data: {
           list: ["string", 12],

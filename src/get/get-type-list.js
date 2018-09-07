@@ -22,12 +22,15 @@ export function getTypeList(type) {
       typeList.push(type.substring(start, i));
     } else {
       let start = i;
+      let t;
       while (i < n && type[i] !== "|") {
         i += 1;
       }
-      typeList.push(type.substring(start, i).trim());
+      t = type.substring(start, i).trim();
+      if (t) {
+        typeList.push(t);
+      }
     }
   }
-
   return typeList;
 }
