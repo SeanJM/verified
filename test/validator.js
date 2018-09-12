@@ -54,7 +54,7 @@ export default function (test) {
   })
     .isDeepEqual(function () {
       return {
-        type: "string | number",
+        type: "string|number",
         data: 1,
         isValid: true,
         invalid: [],
@@ -65,6 +65,20 @@ export default function (test) {
   test("Validator: | string | number", function () {
     const validator = new Validator("| string | number");
     const result = [];
+    result.push(validator.validate(1).isValid);
+    result.push(validator.validate("value").isValid);
+    return result;
+  })
+    .isDeepEqual([true, true]);
+
+  test("Validator: | string | number (multiline)", function () {
+    const validator = new Validator(`
+      | string
+      | number
+    `);
+
+    const result = [];
+
     result.push(validator.validate(1).isValid);
     result.push(validator.validate("value").isValid);
     return result;
