@@ -43,13 +43,12 @@ function validateByTypeString(props) {
 }
 
 function validateByTypeBoolean(props) {
-  const type = get(props.type, props.pathname);
   const data = get(props.data, props.pathname);
   return {
-    type: type,
-    value: type === data,
+    type: props.type,
+    value: props.type === data,
     data: props.data,
-    isValid: type === data,
+    isValid: props.type === data,
     invalid: [],
   };
 }

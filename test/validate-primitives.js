@@ -152,6 +152,21 @@ export default function (test) {
       };
     });
 
+  test("Validator: true", function () {
+    const validator = new Validator(true);
+    const result = validator.validate(true);
+    return result;
+  })
+    .isDeepEqual(function () {
+      return {
+        type: true,
+        data: true,
+        isValid: true,
+        invalid: [],
+        value: true,
+      };
+    });
+
   test("Validator: array of any (any[])", function () {
     try {
       const validator = new Validator({

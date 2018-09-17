@@ -12,7 +12,6 @@ import { INVALID } from "@constants";
 */
 export function validateObject(props) {
   const type = getTypeInterface(props);
-
   const response = {
     value: {},
     data: props.data || {},

@@ -264,4 +264,31 @@ export default function (test) {
         "invalid": [],
       };
     });
+
+  test("Validator: Object nested false", function () {
+    const validator = new Validator({
+      nested: true,
+    });
+
+    const result = validator.validate({
+      nested: true,
+    });
+
+    return result;
+  })
+    .isDeepEqual(function () {
+      return {
+        "value": {
+          "nested": true,
+        },
+        "data": {
+          "nested": true,
+        },
+        "type": {
+          "nested": true,
+        },
+        "isValid": true,
+        "invalid": [],
+      };
+    });
 }
