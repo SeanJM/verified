@@ -4,6 +4,7 @@ import { validateArray } from "./validate-array";
 import { validateInterface } from "./validate-interface";
 import { isTypedArray } from "@predicates";
 import { getTypeList } from "@get";
+import { get } from "@tools";
 
 function validateByTypeString(props) {
   const typeList = getTypeList(props.type);
@@ -41,6 +42,18 @@ function validateByTypeString(props) {
   return temp;
 }
 
+function validateByTypeBoolean(props) {
+  const type = get(props.type, props.pathname);
+  const data = get(props.data, props.pathname);
+  return {
+    type: type,
+    value: type === data,
+    data: props.data,
+    isValid: type === data,
+    invalid: [],
+  };
+}
+
 /**
  * @param {object} props
  * @param {any} props.data
@@ -60,6 +73,8 @@ export function validateByType(props) {
   } else if (typeof props.type === "string") {
     props.type = props.type.replace(/(\s+|)\|(\s+|)/g, "|");
     return validateByTypeString(props);
+  } else if (typeof props.type === "boolean") {
+    return validateByTypeBoolean(props);
   }
   return validateObject(props);
 }
